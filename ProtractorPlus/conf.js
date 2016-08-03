@@ -1,4 +1,5 @@
-var HtmlReporter = require('protractor-jasmine2-screenshot-reporter');
+// var HtmlReporter = require('protractor-jasmine2-screenshot-reporter');
+var Jasmine2HtmlReporter = require('protractor-jasmine2-html-reporter');
 // var reporter=new HtmlReporter({
 //     baseDirectory: '.././Reports', takeScreenShotsOnlyForFailedSpecs: true, // a location to store screen shots.
 //     docTitle: 'Protractor Demo Reporter',
@@ -18,10 +19,18 @@ exports.config = {
     // },
 
     capabilities: {
-        browserName: 'chr'
+      browserName: 'chrome',
+      shardTestFiles: true,
+      maxInstances: 1
     },
 
     onPrepare: function() {
+        var date = new Date();
+        var today = date.getFullYear() + "" + (date.getMonth() + 1) + date.getDate() + date.getHours() + date.getMinutes() + date.getSeconds();
+        jasmine.getEnv().addReporter(new Jasmine2HtmlReporter({
+            takeScreenshots: false,
+            filePrefix: 'Reporter-USEPP-' + browser.params.Env + '-' + today
+        }));
     },
 
     jasmineNodeOpts: {
