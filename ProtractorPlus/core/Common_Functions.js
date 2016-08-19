@@ -25,14 +25,54 @@ function switchBackToParent(driver, parentHandle) {
 }
 
 //===============================double click================================================================================
-function doubleClick(browser, targetElement){
-  browser.actions.doubleClick(targetElement).perform();
+function doubleClick(browser, targetElement) {
+    browser.actions.doubleClick(targetElement).perform();
 }
 
+//===============================wait for the element is present================================================================================
+function waitforElePresent(browser, targetElement) {
+    return browser.wait(targetElement.isPresent(), 10000);
+}
 
+//===============================wait for the element is not present================================================================================
+function waitforEleNotPresent(browser, targetElement) {
+    browser.wait(function() {
+        var deferred = protractor.promise.defer();
+        targetElement.isPresent().then(function(isPresent) {
+            deffered.fulfill(!isPresent);
+        });
+        return deffered.promise;
+    }, 10000);
+}
 
+//===============================wait for the element by diff conditions================================================================================
+function waitForElementClickable(browser, targetElement) {
+    var EC = protractor.ExpectedConditions;
+    return browser.wait(EC.elementToBeClickable(targetElement), 10000);
+}
+
+function waitForElementVisible(browser, targetElement) {
+    var EC = protractor.ExpectedConditions;
+    return browser.wait(EC.visibilityOf(targetElement), 10000);
+}
+
+function waitForElementTextPresent(browser, targetElement, text) {
+    var EC = protractor.ExpectedConditions;
+    return browser.wait(EC.textToBePresentInElement(targetElement, text), 10000);
+}
+
+function waitForElementSelected(browser, targetElement) {
+    var EC = protractor.ExpectedConditions;
+    return browser.wait(EC.elementToBeSelected(targetElement), 10000);
+}
 
 exports.createRandomYopmail = createRandomYopmail;
 exports.switchToPopup = switchToPopup;
 exports.switchBackToParent = switchBackToParent;
 exports.doubleClick = doubleClick;
+exports.waitforElePresent = waitforElePresent;
+exports.waitforEleNotPresent = waitforEleNotPresent;
+exports.waitForElementClickable = waitForElementClickable;
+exports.waitForElementVisible = waitForElementVisible;
+exports.waitForElementTextPresent = waitForElementTextPresent;
+exports.waitForElementSelected = waitForElementSelected;
