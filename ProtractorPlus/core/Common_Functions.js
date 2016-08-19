@@ -24,21 +24,15 @@ function switchBackToParent(driver, parentHandle) {
     expect(currentHandle).toEqual(parentHandle);
 }
 
+//===============================double click================================================================================
+function doubleClick(browser, targetElement){
+  browser.actions.doubleClick(targetElement).perform();
+}
 
-// //===============================click and wait the an expected element================================================================================
-// function clickAndWait(targetElement, expectedElement) {
-//     targetElement.click().then(function() {
-//         browser.driver.wait(
-//             function() {
-//                 expectedElement.isElementPresent().then(function(isPresent) {
-//                     return isPresent;
-//                 });
-//             }, 30000);
-//     });
-// }
 
 
 
 exports.createRandomYopmail = createRandomYopmail;
 exports.switchToPopup = switchToPopup;
 exports.switchBackToParent = switchBackToParent;
+exports.doubleClick = doubleClick;
