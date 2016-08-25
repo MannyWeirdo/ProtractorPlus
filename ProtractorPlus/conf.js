@@ -33,11 +33,11 @@ exports.config = {
         // to set up the browser size
         browser.driver.manage().window().setSize(1600, 800);
         // to generate a html reporter after your test
-        var date = new Date();
-        var today = date.getFullYear() + "" + (date.getMonth() + 1) + date.getDate() + date.getHours() + date.getMinutes() + date.getSeconds();
+        var date = new Date().toISOString();
+
         jasmine.getEnv().addReporter(new Jasmine2HtmlReporter({
             takeScreenshots: false,
-            filePrefix: 'Reporter-USEPP-' + browser.params.Env + '-' + today
+            filePrefix: 'Reporter-USEPP-' + browser.params.Env + '-' + date
         }));
 
         // to generate a xml reporter after your test , before that you need to "npm install mkdirp" to your testing env
