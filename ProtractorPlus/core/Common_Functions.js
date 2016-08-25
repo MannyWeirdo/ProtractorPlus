@@ -5,7 +5,6 @@ function createRandomYopmail() {
     return valid_Yopmail;
 }
 
-
 //===============================switch to pop up window================================================================================
 function switchToPopup(driver) {
     var handles = driver.getAllWindowHandles().then(function(handles) {
@@ -31,10 +30,13 @@ function doubleClick(browser, targetElement) {
 
 //===============================wait for the element is present================================================================================
 function waitforElePresent(browser, targetElement) {
-    return browser.wait(targetElement.isPresent(), 10000);
+     browser.wait(targetElement.isPresent(), 10000);
 }
 
 //===============================wait for the element is not present================================================================================
+/*
+   This is a blocking wait function, your code wont excute a line till the promise return a true.
+*/
 function waitforEleNotPresent(browser, targetElement) {
     browser.wait(function() {
         var deferred = protractor.promise.defer();
@@ -42,10 +44,10 @@ function waitforEleNotPresent(browser, targetElement) {
             deffered.fulfill(!isPresent);
         });
         return deffered.promise;
-    }, 10000);
+    });
 }
 
-//===============================wait for the element by diff conditions================================================================================
+//===============================multiple funcs for waiting for the element by conditions================================================================================
 function waitForElementClickable(browser, targetElement) {
     var EC = protractor.ExpectedConditions;
     return browser.wait(EC.elementToBeClickable(targetElement), 10000);
